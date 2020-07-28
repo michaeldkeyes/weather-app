@@ -30,11 +30,8 @@ export default {
       navigator.geolocation.getCurrentPosition((position) => {
         const long = position.coords.longitude;
         const lat = position.coords.latitude;
-
-        console.log(long);
-
         fetch(
-          `${this.api.base}weather?lat=${lat}&long=${long}&units=imperial&appid=${this.api.key}`
+          `${this.api.base}weather?lat=${lat}&lon=${long}&units=imperial&appid=${this.api.key}`
         )
           .then((res) => res.json())
           .then(
@@ -42,7 +39,7 @@ export default {
               (this.city = res.name),
               (this.country = res.sys.country),
               ((this.temperature = Math.round(res.main.temp)),
-              (this.weather = res.weather[0].main))
+              (this.weather = res.weather[0].description))
             )
           );
       });
@@ -73,7 +70,7 @@ export default {
             (this.city = res.name),
             (this.country = res.sys.country),
             ((this.temperature = Math.round(res.main.temp)),
-            (this.weather = res.weather[0].main))
+            (this.weather = res.weather[0].description))
           )
         );
     },
